@@ -1,0 +1,301 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Little Surprise 💌</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ------------------ GLOBAL STYLING ------------------ */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(120deg, #ffe6eb, #fff0f5, #ffe6f0);
+      background-size: 200% 200%;
+      animation: bgMove 6s infinite alternate;
+      overflow: hidden;
+      color: #333;
+    }
+    @keyframes bgMove {0% {background-position:left}100% {background-position:right}}
+    
+.section {
+  display: none; opacity: 0; transform: scale(0.98);
+  height: 100vh; justify-content: center; align-items: center;
+  flex-direction: column; text-align: center; padding: 20px;
+  transition: opacity .6s ease, transform .6s ease;
+}
+.section.active {display: flex; opacity: 1; transform: scale(1);} 
+.hidden {display:none!important;}
+
+.card {
+  background: rgba(255,255,255,.85);
+  backdrop-filter: blur(12px);
+  padding: 35px 25px;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(255,182,193,.4);
+  max-width: 500px;
+  width: 90%;
+  animation: fadeIn 1.5s ease;
+  z-index: 2;
+}
+@keyframes fadeIn {from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.handwritten {font-family:'Great Vibes',cursive;color:#e91e63;font-size:2em;}
+.signature {font-family:'Great Vibes',cursive;font-size:1.6em;margin-top:15px;color:#e91e63;}
+
+.btn {
+  background-color:#e91e63;color:#fff;border:none;padding:10px 25px;border-radius:12px;
+  margin-top:20px;cursor:pointer;font-size:1em;transition:.3s;box-shadow:0 0 10px rgba(233,30,99,.4);
+}
+.btn:hover{transform:scale(1.05);background-color:#c2185b;}
+.btn.outline{background:transparent;color:#e91e63;border:2px solid #e91e63;}
+.btn.confirm{background-color:#ff6699;}
+.btn-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+
+/* Heart Rain */
+#heart-rain div{position:fixed;color:#ff4d6d;font-size:20px;animation:fall linear forwards;opacity:.9;z-index:0;}
+@keyframes fall{0%{transform:translateY(0)rotate(0);}100%{transform:translateY(110vh)rotate(360deg);opacity:0;}}
+
+input[type=password]{padding:10px;width:80%;border-radius:8px;border:1px solid #e91e63;outline:none;margin-top:15px;text-align:center;}
+.hint{font-size:.9em;color:#777;margin-top:10px;}
+.quote{font-style:italic;color:#444;line-height:1.6;}
+
+.gif-embed-wrap { width:160px; margin:10px auto 18px; border-radius:15px; overflow:hidden; }
+@media (max-width:420px){ .gif-embed-wrap { width:120px; } }
+
+/* ------------------ IMPROVED LOADING PAGE ------------------ */
+#loadingPage {
+  background: linear-gradient(135deg, #fff0f5, #ffe4ec, #ffd9e8);
+  color: #e91e63;
+}
+
+.loader-circle {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 6px solid #ffc0d4;
+  border-top: 6px solid #e91e63;
+  animation: spin 1s infinite linear;
+  margin: 15px auto;
+}
+
+.shine-text {
+  font-size: 1.4em;
+  font-weight: 600;
+  background: linear-gradient(90deg,#e91e63,#ff8fb3,#e91e63);
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: shine 2s infinite;
+}
+@keyframes shine {0%{background-position:0%}100%{background-position:100%}}
+@keyframes spin {100% {transform:rotate(360deg);}}
+  </style>
+</head>
+<body>
+  <div id="heart-rain"></div>
+
+  <audio id="bgAudio" loop>
+    <source src="https://raw.githubusercontent.com/codewithshubhu/Rahul/main/music.mp3" type="audio/mpeg" />
+  </audio>
+
+  <div class="app">
+
+<!-- LOADING PAGE -->
+<section id="loadingPage" class="section active">
+  <div class="card">
+    <div class="loader-circle"></div>
+    <h2 class="handwritten">Just a moment… 💌</h2>
+    <p class="shine-text">Preparing your surprise ✨</p>
+  </div>
+</section>
+
+<!-- PASSWORD PAGE -->
+<section id="passwordPage" class="section hidden">
+  <div class="card auth-card">
+    <h1 class="handwritten">Welcome to my page</h1>
+    <p>“I don’t know how you’ll react…”<br>But this is something I made just for you 💌</p>    <form id="pwForm">
+      <input type="password" id="pwInput" placeholder="Enter password" required />
+      <button class="btn">Open</button>
+    </form>
+    <p class="hint">Hint: It's a special date 💭</p>
+  </div>
+</section>
+
+<!-- MAIN PAGE -->
+<section id="mainPage" class="section hidden">
+  <div class="card">
+    <div class="gif-embed-wrap">
+      <div class="tenor-gif-embed" data-postid="2132781642126111018" data-share-method="host" data-aspect-ratio="1.0" data-width="100%"></div>
+    </div>
+    <h2 class="handwritten">Hey —</h2>
+    <p id="typewriter"></p>
+    <button class="btn" id="toWelcome">Next →</button>
+  </div>
+</section>
+
+<!-- INTRO PAGE -->
+<section id="welcomePage" class="section hidden">
+  <div class="card">
+    <div class="gif-embed-wrap">
+      <div class="tenor-gif-embed" data-postid="17172451392080364543" data-share-method="host" data-aspect-ratio="1.0" data-width="100%"></div>
+    </div>
+    <h2 class="handwritten">Hi! I’m <span style="white-space:nowrap;">Rahul</span></h2>
+    <p class="lead">I study in Brilliant Public School, and I’m in class 9-E.</p>
+    <button class="btn" id="continueBtn">Continue →</button>
+  </div>
+</section>
+
+<!-- THOUGHT PAGE -->
+<section id="quotePage" class="section hidden">
+  <div class="card">
+    <div class="gif-embed-wrap">
+      <div class="tenor-gif-embed" data-postid="1915095380882195511" data-share-method="host" data-aspect-ratio="1.0" data-width="100%"></div>
+    </div>
+    <h2 class="handwritten">A Little Thought 💫</h2>
+    <p class="lead quote">
+Funny how we’re still strangers…  
+yet moments like this feel a little special.  
+Maybe it’s nothing.  
+Or maybe it’s the start of something we don’t see coming.
+</p>    <button class="btn" id="toProposal">Continue →</button>
+  </div>
+</section>
+
+<!-- PROPOSAL PAGE -->
+<section id="proposalPage" class="section hidden">
+  <div class="card">
+    <div class="gif-embed-wrap">
+      <div class="tenor-gif-embed" data-postid="21630577" data-share-method="host" data-aspect-ratio="1.0" data-width="100%"></div>
+    </div>
+    <h1 class="handwritten">Will you be my friend? 💖</h1>
+   <p>
+I don’t know what we’ll become…  
+but I’d love to be someone you can laugh with,  
+lean on, and share the small moments that slowly start to mean a lot.
+</p>
+    <div class="btn-row">
+      <button id="yesBtn" class="btn confirm">Yes — I'd love that</button>
+      <button id="noBtn" class="btn outline">No</button>
+    </div>
+  </div>
+</section>
+
+<!-- NO PAGE -->
+<section id="noPage" class="section hidden">
+  <div class="card">
+    <div class="gif-embed-wrap">
+      <div class="tenor-gif-embed" data-postid="12611896631449379850" data-share-method="host" data-aspect-ratio="1.0" data-width="100%"></div>
+    </div>
+    <h1 class="handwritten">Oh… really? 😔</h1>
+    <p>Are you sure you don’t want to be friends?<br>Let's try once more 🙂</p>
+    <div class="btn-row">
+      <button id="noYesBtn" class="btn confirm">Yes — let's be friends</button>
+      <button id="noNoBtn" class="btn outline">No — really</button>
+    </div>
+  </div>
+</section>
+
+<!-- YES PAGE -->
+<section id="yesPage" class="section hidden">
+  <div class="card" id="yesCard">
+    <div class="gif-embed-wrap">
+      <div class="tenor-gif-embed" data-postid="4232353899743732903" data-share-method="host" data-aspect-ratio="1.0" data-width="100%"></div>
+    </div>
+   <h2 class="handwritten">Yay! Thank you ❤️</h2>
+<p>Congrats — now you're on my <b>VIP list</b> 😂  
+A moment like this was too sweet to resist!</p>
+
+<p><i>Just one rule: keep that smile bright 😜  
+It makes everything around you feel just right.</i></p>
+
+<p><i>And next time we meet, don’t act all cool 😉  
+You know that vibe of yours breaks every rule.</i></p>
+
+<p><i>Admit it… you felt a little spark too 😏  
+Maybe that’s why my thoughts keep coming back to you.</i></p>    <p class="insta">  
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" width="22" height="22" style="vertical-align:middle;margin-right:6px;border-radius:5px;">  
+      Find me on Instagram:  
+      <a href="https://instagram.com/th.erix_" target="_blank">@th.erix_</a>  
+    </p>  
+    <p class="signature">~ Rahul Kumar</p> 
+    <button class="btn outline" id="replayBtn">Replay 🔁</button>
+  </div>  
+</section>
+
+  </div>
+
+<script>
+/* Heart Rain */
+function createHeart(){
+  const h=document.createElement('div');
+  h.textContent='💖';
+  h.style.left=Math.random()*100+'vw';
+  h.style.animationDuration=3+Math.random()*3+'s';
+  document.getElementById('heart-rain').appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+}
+setInterval(createHeart,300);
+
+/* Audio Fade */
+function fadeAudio(audio, target, duration){
+  const step=(target-audio.volume)/(duration/100);
+  const timer=setInterval(()=>{
+    audio.volume=Math.min(1,Math.max(0,audio.volume+step));
+    if((step>0&&audio.volume>=target)||(step<0&&audio.volume<=target)){clearInterval(timer);}
+  },100);
+}
+function startMusic(){const a=document.getElementById('bgAudio');a.volume=0;a.play().catch(()=>{});fadeAudio(a,0.5,2000);}    
+function stopMusic(){const a=document.getElementById('bgAudio');fadeAudio(a,0,1500);setTimeout(()=>a.pause(),1600);}    
+
+/* Section Switching */
+function switchSection(id){
+  document.querySelectorAll('.section').forEach(s=>{
+    if(s.id===id){s.classList.remove('hidden');setTimeout(()=>s.classList.add('active'),10);} 
+    else{s.classList.remove('active');setTimeout(()=>s.classList.add('hidden'),600);} 
+  });
+  window.scrollTo(0,0);
+}
+
+/* Password */
+function encrypt(text){return btoa(text.split('').reverse().join(''));}
+const correctHash=encrypt('1234');
+
+setTimeout(()=>switchSection('passwordPage'),2000);
+
+document.getElementById('pwForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const val=document.getElementById('pwInput').value.trim();
+  if(encrypt(val)===correctHash){switchSection('mainPage');startMusic();typeWriter();}
+  else alert('Wrong password 😅');
+});
+
+/* Typewriter */
+const text="Hey… I just wanted to say something simple — You're genuinely different, and maybe that's why I made this for you ❤️";
+let i=0;
+function typeWriter(){const el=document.getElementById('typewriter');if(i<text.length){el.textContent+=text.charAt(i++);setTimeout(typeWriter,50);}}
+
+document.getElementById('toWelcome').addEventListener('click',()=>switchSection('welcomePage'));
+document.getElementById('continueBtn').addEventListener('click',()=>switchSection('quotePage'));
+document.getElementById('toProposal').addEventListener('click',()=>switchSection('proposalPage'));
+
+document.getElementById('yesBtn').addEventListener('click',()=>{switchSection('yesPage');stopMusic();});
+document.getElementById('noBtn').addEventListener('click',()=>{switchSection('noPage');initNoPage();});
+
+function initNoPage(){
+  document.getElementById('noYesBtn').addEventListener('click',()=>switchSection('yesPage'));
+  moveRandomEffect(document.getElementById('noNoBtn'));
+}
+
+function moveRandomEl(elm){elm.style.position='absolute';elm.style.top=Math.random()*80+10+'%';elm.style.left=Math.random()*80+10+'%';}
+function moveRandomEffect(btn){
+  ['mouseenter','mousemove','click'].forEach(ev=>btn.addEventListener(ev,()=>moveRandomEl(btn)));
+}
+
+document.getElementById('replayBtn').addEventListener('click',()=>{
+  i=0;document.getElementById('typewriter').textContent='';document.getElementById('pwInput').value='';
+  switchSection('passwordPage');
+});
+</script>
+
+<script async src="https://tenor.com/embed.js"></script>
+</body>
+</html>
